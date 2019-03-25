@@ -6,9 +6,8 @@ from sklearn.metrics import accuracy_score, mean_squared_error
 __all__ = ["DecisionTree"]
 
 # =============================================================================
-# Types, constants and Supportive functions
+# Supportive functions
 # =============================================================================
-RANDOM_STATE = 17
 
 # Classification criterion functions
 def entropy(y):    
@@ -83,6 +82,7 @@ class DecisionTree(BaseEstimator):
     
     def _functional(self, X, y, feature_idx, threshold):
         '''A functional returns the gain achieved if we split the data at given feature and threshold value'''
+
         if threshold is np.nan:
             return 0
         
@@ -159,7 +159,8 @@ class DecisionTree(BaseEstimator):
     def fit(self, X, y):
         '''the method takes the matrix of instances X and a target vector y (numpy.ndarray objects) 
         and returns an instance of the class DecisionTree representing the decision tree trained on the 
-        dataset (X, y) according to parameters set in the constructor'''
+        dataset (X, y) according to parameters set in the constructor
+        '''
         
         # remember the number classes for classification task
         if self.criterion in ['gini', 'entropy']:
@@ -185,7 +186,8 @@ class DecisionTree(BaseEstimator):
         '''the method takes the matrix of instances X and returns a prediction vector;
         in case of classification, prediction for an instance  xi  falling into leaf L will be the class,
         mostly represented among instances in  L . 
-        In case of regression, it will be the mean value of targets for all instances in leaf  L'''
+        In case of regression, it will be the mean value of targets for all instances in leaf  L
+        '''
         return np.array([self._predict_object(x) for x in X])
         
     
@@ -204,5 +206,6 @@ class DecisionTree(BaseEstimator):
     def predict_proba(self, X):
         '''the method takes the matrix of instances X and returns the matrix P of a size [X.shape[0] x K],
         where K is the number of classes and  Pij  is the probability of an instance in  i -th row of X 
-        to belong to class  j∈{1,…,K}'''
+        to belong to class  j∈{1,…,K}
+        '''
         return np.array([self._predict_prob_object(x) for x in X])

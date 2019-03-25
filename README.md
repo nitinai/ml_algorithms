@@ -1,11 +1,11 @@
 # Machine Learning Algorithms
 
-This repository contains bare minimum implementation of different machine learning algorithms in order to understand how those algorthms actually works.
+This repository contains bare minimum implementation of different machine learning algorithms. The main purpose of this project is to understand mechanics of these algorthms.
 
-## Implemented algoritms 
+## Implemented algorithms 
 * [Decision trees](mllearn/ensemble/forest.py)
 * [Random forests](mllearn/tree/tree.py)
 
-Test cases has been written for all algorithms. You can be found them [here](mllearn/tests)
+Test cases has been written for all algorithms. You can be find them [here](mllearn/tests)
 
-Please feel free to open an issue if you find a bug in implementation.
+Please feel free to [open an issue](https://github.com/nitinai/ml_algorithms/issues/new) if you find a bug in implementation.
