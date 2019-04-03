@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.com/nitinai/ml_algorithms.svg?branch=master)](https://travis-ci.com/nitinai/ml_algorithms)
+
 # Machine Learning Algorithms
 
 This repository contains bare minimum implementation of different machine learning algorithms. The main purpose of this project is to understand mechanics of these algorthms.
