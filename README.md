@@ -6,6 +6,6 @@ This repository contains bare minimum implementation of different machine learni
 * [Decision trees](mllearn/ensemble/forest.py)
 * [Random forests](mllearn/tree/tree.py)
 
-Test cases has been written for all algorithms. You can be find them [here](mllearn/tests)
+Test cases are written for all algorithms. You can be find them [here](mllearn/tests)
 
 Please feel free to [open an issue](https://github.com/nitinai/ml_algorithms/issues/new) if you find a bug in implementation.
