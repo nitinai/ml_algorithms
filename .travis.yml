@@ -1,3 +1,6 @@
+# Disable sudo to speed up the build
+sudo: false
+
 dist: xenial   # required for Python >= 3.7
 language: python
 python:
@@ -10,3 +13,7 @@ install:
 # command to run test
 script:
   - pytest
+
+# Push the results back to codecov
+after_success:
+  - codecov
