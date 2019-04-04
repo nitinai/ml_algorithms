@@ -1,6 +1,6 @@
 [run]
 branch = True
-source = mllearn
+include = mllearn/*
 
 [report]
 exclude_lines =
@@ -11,4 +11,3 @@ exclude_lines =
 ignore_errors = True
 omit =
     mllearn/tests/*
-    
