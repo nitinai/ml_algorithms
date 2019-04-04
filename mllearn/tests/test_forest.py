@@ -27,13 +27,12 @@ def classification_dataset():
 def test_random_forest_classifer_entropy(classification_dataset):
     """Test decision tree classifier """
     X_train, X_test, y_train, y_test = classification_dataset
-    clf = RandomForest(n_estimators=10, max_depth=7, max_features=2, random_state=RANDOM_STATE) 
+    clf = RandomForest(n_estimators=10, max_depth=7, max_features=2, random_state=RANDOM_STATE, criterion='entropy', debug=False) 
     clf.fit(X_train, y_train)
-    #y_pred = clf.predict(X_test)
     y_pred_prob = clf.predict_proba(X_test)
     y_pred = np.argmax(y_pred_prob, axis=1)
 
     predict_accuracy = accuracy_score(y_test, y_pred)
     print(f"Accuracy : {predict_accuracy}")
-    assert( predict_accuracy > 0.86 )
+    assert( predict_accuracy >= 0.85 )
     assert( np.sum(np.argmax(y_pred_prob, axis=1) - y_pred) == 0 )

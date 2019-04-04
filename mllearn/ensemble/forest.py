@@ -12,11 +12,12 @@ RANDOM_STATE = 17
 
 class RandomForest(BaseEstimator):
     def __init__(self, n_estimators=10, max_depth=10, max_features=10, 
-                 random_state=RANDOM_STATE, debug=False):
+                 random_state=RANDOM_STATE, criterion='gini', debug=False):
         self.n_estimators = n_estimators
         self.max_depth = max_depth
         self.max_features = max_features
         self.random_state = random_state
+        self.criterion = criterion
         self.debug = debug
         
         self.trees = []
@@ -40,7 +41,7 @@ class RandomForest(BaseEstimator):
             # select max_features features without replacement (means without repeated occurrence of feature)
             feat_indices = np.random.choice(range(X.shape[1]), size=self.max_features, replace=False)
             self.feat_ids_by_tree.append(feat_indices)
-            if self.debug: print(f'Tree {i+1} feature indices : {feat_indices}')
+            #if self.debug: print(f'Tree {i+1} feature indices : {feat_indices}')
             
             # make a bootstrap sample (i.e. sampling with replacement, means repeated occurrence of instances)
             # of training instances. But use 'set' to just keep one out of duplicate instances. Not sure but I guess
@@ -48,9 +49,9 @@ class RandomForest(BaseEstimator):
             indices = list(set(np.random.choice(X.shape[0], size=X.shape[0], replace=True)))
             sample = X[indices,:][:,feat_indices] # [indices,:] - get specific rows with all columns
                                                   # [:,feat_indices] - then get specific columns keeping all rows
-            if self.debug: print(f'Tree {i+1} X shape : {sample.shape}')
+            #if self.debug: print(f'Tree {i+1} X shape : {sample.shape}')
             
-            tree = DecisionTree(max_depth=self.max_depth)
+            tree = DecisionTree(max_depth=self.max_depth, criterion=self.criterion, debug=self.debug)
             tree.fit(sample, y[indices])
             self.trees.append(tree)
             
@@ -64,7 +65,7 @@ class RandomForest(BaseEstimator):
         prob = []
         for i, tree in enumerate(self.trees):
             p = tree.predict_proba(X[:, self.feat_ids_by_tree[i]])
-            if self.debug: print(f'Tree {i+1} prob shape : {p.shape}')
+            #if self.debug: print(f'Tree {i+1} prob shape : {p.shape}')
             prob.append(p)
             
         return np.mean(prob, axis=0)

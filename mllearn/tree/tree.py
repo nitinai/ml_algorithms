@@ -47,12 +47,16 @@ def regression_leaf(y):
 class Node():
     '''Node class represents a node in a decision tree'''
     
-    def __init__(self, feature_idx=0, threshold=0, labels=None, left=None, right=None):
+    def __init__(self, feature_idx=0, threshold=0, labels=None, left=None, right=None, debug=False):
         self.feature_idx = feature_idx
         self.threshold = threshold
         self.labels = labels
         self.left = left
         self.right = right
+        if debug:
+            print(f"threshold: {self.threshold}, labels: {self.labels}")
+        
+    
 
 
 class DecisionTree(BaseEstimator):
@@ -149,9 +153,9 @@ class DecisionTree(BaseEstimator):
                 best_threshold = all_thresholds[threshold_idx]
 
         # Split data at this best feature and threshold
-        mask = X[:,best_feat_idx] < best_threshold
+        mask = X[:,best_feat_idx] <= best_threshold
         
-        return Node(best_feat_idx, best_threshold, labels=None, # We need to cache labels only at leaf node
+        return Node(best_feat_idx, best_threshold, debug=self.debug, labels=None, # We need to cache labels only at leaf node
                              left = self._build_tree(X[mask], y[mask], depth+1), # continue to build on left side
                              right = self._build_tree(X[~mask], y[~mask], depth+1)) # continue to build on right side
 
