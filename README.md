@@ -1,6 +1,6 @@
 [![Build Status](https://travis-ci.org/nitinai/ml_algorithms.svg?branch=master)](https://travis-ci.org/nitinai/ml_algorithms)
 
-[![Codecov Status](https://codecov.io/gh/nitinai/ml_algorithms/badge.svg?branch=master&service=github)](https://codecov.io/gh/nitinai/ml_algorithms)
+[![codecov](https://codecov.io/gh/nitinai/ml_algorithms/branch/master/graph/badge.svg)](https://codecov.io/gh/nitinai/ml_algorithms)
 
 
 # Machine Learning Algorithms
