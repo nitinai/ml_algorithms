@@ -12,7 +12,7 @@ This repository contains bare minimum implementation of different machine learni
 Test cases are written for all algorithms. You can be find them [here](mllearn/tests)
 
 ## How to use
-1	
+	
 	git clone https://github.com/nitinai/ml_algorithms.git
 	cd ml_algorithms
 	
