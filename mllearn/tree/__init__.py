@@ -4,5 +4,8 @@ classification and regression.
 """
 
 from .tree import DecisionTree
+from .tree import DecisionTreeClassifier
 
-__all__ = ["DecisionTree"]
+__all__ = [ "DecisionTree",
+            "DecisionTreeClassifier"]
+

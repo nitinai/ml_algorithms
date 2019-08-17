@@ -1,7 +1,7 @@
 import pytest
 
 import numpy as np
-from mllearn.tree import DecisionTree
+from mllearn.tree import DecisionTree, DecisionTreeClassifier
 
 from sklearn.datasets import make_classification, make_regression
 from sklearn.model_selection import train_test_split
@@ -27,7 +27,7 @@ def classification_dataset():
 def test_decision_tree_classifer_entropy(classification_dataset):
     """Test decision tree classifier """
     X_train, X_test, y_train, y_test = classification_dataset
-    clf = DecisionTree(max_depth=4, min_samples_split=2, criterion='entropy')
+    clf = DecisionTreeClassifier(max_depth=4, min_samples_split=2, criterion='entropy')
     clf.fit(X_train, y_train)
     y_pred = clf.predict(X_test)
     y_pred_prob = clf.predict_proba(X_test)
@@ -40,7 +40,7 @@ def test_decision_tree_classifer_entropy(classification_dataset):
 def test_decision_tree_classifer_gini(classification_dataset):
     """Test decision tree classifier """
     X_train, X_test, y_train, y_test = classification_dataset
-    clf = DecisionTree(max_depth=4, min_samples_split=2, criterion='gini')
+    clf = DecisionTreeClassifier(max_depth=4, min_samples_split=2, criterion='gini')
     clf.fit(X_train, y_train)
     y_pred = clf.predict(X_test)
     y_pred_prob = clf.predict_proba(X_test)

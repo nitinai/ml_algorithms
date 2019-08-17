@@ -3,18 +3,27 @@ import numpy as np
 from sklearn.base import BaseEstimator
 from sklearn.metrics import accuracy_score, mean_squared_error
 
-__all__ = ["DecisionTree"]
+__all__ = [ "DecisionTree",
+            "DecisionTreeClassifier"]
 
 # =============================================================================
 # Supportive functions
 # =============================================================================
 
-# Classification criterion functions
-def entropy(y):    
+# Classification criterion functions to measure the quality of a split.
+def entropy(y):
+    """entropy computes the information gain due to split
+    F(X_m) = -\sum_{i = 1}^K p_i \log_2(p_i)
+    """
+    # compute probability of being a particular class
     P = [len(y[y==k]) / len(y) for k in np.unique(y)]
     return -1 * np.dot(P, np.log2(P))
 
 def gini(y):
+    """gini impurity to measure the quality of a split
+    F(X_m) = 1 -\sum_{i = 1}^K p_i^2
+    """
+    # compute probability of being a particular class
     P = [len(y[y==k]) / len(y) for k in np.unique(y)]
     return 1 - np.dot(P, P)
 
@@ -47,7 +56,7 @@ def regression_leaf(y):
 class Node():
     '''Node class represents a node in a decision tree'''
     
-    def __init__(self, feature_idx=0, threshold=0, labels=None, left=None, right=None, debug=False):
+    def __init__(self, feature_idx:int=0, threshold:float=0.0, labels:list=None, left=None, right=None, debug:bool=False):
         self.feature_idx = feature_idx
         self.threshold = threshold
         self.labels = labels
@@ -61,8 +70,11 @@ class Node():
 
 class DecisionTree(BaseEstimator):
     
-    def __init__(self, max_depth=np.inf, min_samples_split=2, 
-                 criterion='gini', debug=False):
+    def __init__(self, 
+                 max_depth:int=np.inf, 
+                 min_samples_split:int=2, 
+                 criterion='gini', 
+                 debug:bool=False):
         
         params = {'max_depth': max_depth,
                   'min_samples_split': min_samples_split,
@@ -213,3 +225,63 @@ class DecisionTree(BaseEstimator):
         to belong to class  j∈{1,…,K}
         '''
         return np.array([self._predict_prob_object(x) for x in X])
+
+
+class DecisionTreeClassifier(DecisionTree):
+    """A decision tree classifier.
+
+    Parameters
+    ----------
+    max_depth : int or None, optional (default=None)
+        The maximum depth of the tree. If None, then nodes are expanded until
+        all leaves are pure or until all leaves contain less than
+        min_samples_split samples.
+        
+    min_samples_split : int, float, optional (default=2)
+        The minimum number of samples required to split an internal node:
+
+        - If int, then consider `min_samples_split` as the minimum number.
+        - If float, then `min_samples_split` is a percentage and
+          `ceil(min_samples_split * n_samples)` are the minimum
+          number of samples for each split.
+
+        .. versionchanged:: 0.18
+           Added float values for percentages.
+           
+    criterion : string, optional (default="gini")
+        The function to measure the quality of a split. Supported criteria are
+        "gini" for the Gini impurity and "entropy" for the information gain.
+
+    Examples
+    --------
+    >>> from sklearn.datasets import load_iris
+    >>> from sklearn.model_selection import cross_val_score
+    >>> from mllearn.tree import DecisionTreeClassifier
+    >>> clf = DecisionTreeClassifier()
+    >>> iris = load_iris()
+    >>> cross_val_score(clf, iris.data, iris.target, cv=10)
+    ...
+    ...
+    array([ 1.     ,  0.93...,  0.86...,  0.93...,  0.93...,
+            0.93...,  0.93...,  1.     ,  0.93...,  1.      ])
+    """
+
+    def __init__(self,
+                 max_depth:int=np.inf, 
+                 min_samples_split:int=2, 
+                 criterion='gini', 
+                 debug:bool=False):
+        super(DecisionTreeClassifier, self).__init__(
+            max_depth=max_depth,
+            min_samples_split=min_samples_split, 
+            criterion=criterion,
+            debug=debug)
+
+
+    def fit(self, X, y):
+        '''the method takes the matrix of instances X and a target vector y (numpy.ndarray objects) 
+        and returns an instance of the class DecisionTree representing the decision tree trained on the 
+        dataset (X, y) according to parameters set in the constructor
+        '''
+        return super(DecisionTreeClassifier, self).fit(X,y)
+
