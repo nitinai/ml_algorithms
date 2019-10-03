@@ -2,10 +2,10 @@ import pytest
 
 import numpy as np
 from mllearn.ensemble import RandomForestClassifier
+from mllearn.metrics import accuracy_score
 
 from sklearn.datasets import make_classification, make_regression
 from sklearn.model_selection import train_test_split
-from sklearn.metrics import accuracy_score
 
 RANDOM_STATE = 17
 

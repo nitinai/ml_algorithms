@@ -2,10 +2,10 @@ import pytest
 
 import numpy as np
 from mllearn.tree import DecisionTreeClassifier, DecisionTreeRegressor
+from mllearn.metrics import accuracy_score, mean_squared_error
 
 from sklearn.datasets import make_classification, make_regression
 from sklearn.model_selection import train_test_split
-from sklearn.metrics import accuracy_score, mean_squared_error
 
 RANDOM_STATE = 17
 

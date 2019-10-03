@@ -7,10 +7,15 @@ This repository contains bare minimum implementation of different machine learni
 
 ## Implemented algorithms 
 - **ensemble**
-  * [RandomForestClassifier](mllearn/ensemble/forest.py#L71)
+  * [RandomForestClassifier](mllearn/ensemble/forest.py#L69)
+- **metrics**
+  - **classification metrics**
+  * [accuracy_score](mllearn/metrics/classification.py#L3)
+  - **regression metrics**
+  * [mean_squared_error](mllearn/metrics/regression.py#L3)
 - **tree**
-  * [DecisionTreeClassifier](mllearn/tree/tree.py#L223)
-  * [DecisionTreeRegressor](mllearn/tree/tree.py#L282)
+  * [DecisionTreeClassifier](mllearn/tree/tree.py#L220)
+  * [DecisionTreeRegressor](mllearn/tree/tree.py#L279)
 
 Test cases are written for all algorithms. You can be find them [here](mllearn/tests)
 
@@ -22,13 +27,12 @@ Test cases are written for all algorithms. You can be find them [here](mllearn/t
 	from sklearn.datasets import load_iris
 	from sklearn.model_selection import train_test_split
 	
-	from sklearn.metrics import accuracy_score
+	from mllearn.metrics import accuracy_score
 	from mllearn.tree import DecisionTreeClassifier
 
 	iris = load_iris()
 	X_train, X_test, y_train, y_test = train_test_split(iris.data, iris.target, test_size=0.3,
                                                     random_state=123)
-	
 	
 	clf = DecisionTreeClassifier()
 	clf.fit(X_train, y_train)

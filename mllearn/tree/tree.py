@@ -1,9 +1,5 @@
 import numpy as np
 
-__all__ = [ "DecisionTree",
-            "DecisionTreeClassifier",
-            "DecisionTreeRegressor"]
-
 # =============================================================================
 # Supportive functions
 # =============================================================================

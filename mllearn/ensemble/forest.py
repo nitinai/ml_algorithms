@@ -3,8 +3,6 @@ import pandas as pd
 
 from ..tree import DecisionTree
 
-__all__ = ["RandomForestClassifier"]
-
 RANDOM_STATE = 17
 
 class RandomForest():
@@ -83,4 +81,3 @@ class RandomForestClassifier(RandomForest):
 
     def fit(self, X, y):
         return super(RandomForestClassifier, self).fit(X,y)
-        
