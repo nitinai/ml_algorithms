@@ -1,10 +1,8 @@
 import numpy as np
 
-from sklearn.base import BaseEstimator
-from sklearn.metrics import accuracy_score, mean_squared_error
-
 __all__ = [ "DecisionTree",
-            "DecisionTreeClassifier"]
+            "DecisionTreeClassifier",
+            "DecisionTreeRegressor"]
 
 # =============================================================================
 # Supportive functions
@@ -64,11 +62,9 @@ class Node():
         self.right = right
         if debug:
             print(f"threshold: {self.threshold}, labels: {self.labels}")
-        
-    
+      
 
-
-class DecisionTree(BaseEstimator):
+class DecisionTree():
     
     def __init__(self, 
                  max_depth:int=np.inf, 
@@ -76,13 +72,11 @@ class DecisionTree(BaseEstimator):
                  criterion='gini', 
                  debug:bool=False):
         
-        params = {'max_depth': max_depth,
-                  'min_samples_split': min_samples_split,
-                  'debug' : debug,
-                  'criterion' : criterion}
-                
-        super(DecisionTree, self).set_params(**params)
-        
+        self.max_depth = max_depth
+        self.min_samples_split = min_samples_split
+        self.criterion = criterion
+        self.debug = debug
+
         self._criterion_fun = criterion_dict[self.criterion]
         
         if self.criterion in ['mse', 'mad_median']:
@@ -285,3 +279,62 @@ class DecisionTreeClassifier(DecisionTree):
         '''
         return super(DecisionTreeClassifier, self).fit(X,y)
 
+
+class DecisionTreeRegressor(DecisionTree):
+    """A decision tree regressor.
+
+    Parameters
+    ----------
+    max_depth : int or None, optional (default=None)
+        The maximum depth of the tree. If None, then nodes are expanded until
+        all leaves are pure or until all leaves contain less than
+        min_samples_split samples.
+        
+    min_samples_split : int, float, optional (default=2)
+        The minimum number of samples required to split an internal node:
+
+        - If int, then consider `min_samples_split` as the minimum number.
+        - If float, then `min_samples_split` is a percentage and
+          `ceil(min_samples_split * n_samples)` are the minimum
+          number of samples for each split.
+
+        .. versionchanged:: 0.18
+           Added float values for percentages.
+           
+    criterion : string, optional (default="mse")
+        The function to measure the quality of a split. Supported criteria are
+        "mse" for the mean squared error impurity and "mad_median" for the mean median
+        error impurity.
+
+    Examples
+    --------
+    >>> from sklearn.datasets import load_iris
+    >>> from sklearn.model_selection import cross_val_score
+    >>> from mllearn.tree import DecisionTreeRegressor
+    >>> clf = DecisionTreeRegressor()
+    >>> iris = load_iris()
+    >>> cross_val_score(clf, iris.data, iris.target, cv=10)
+    ...
+    ...
+    array([ 1.     ,  0.93...,  0.86...,  0.93...,  0.93...,
+            0.93...,  0.93...,  1.     ,  0.93...,  1.      ])
+    """
+
+    def __init__(self,
+                 max_depth:int=np.inf, 
+                 min_samples_split:int=2, 
+                 criterion='mse', 
+                 debug:bool=False):
+        super(DecisionTreeRegressor, self).__init__(
+            max_depth=max_depth,
+            min_samples_split=min_samples_split, 
+            criterion=criterion,
+            debug=debug)
+
+
+    def fit(self, X, y):
+        '''the method takes the matrix of instances X and a target vector y (numpy.ndarray objects) 
+        and returns an instance of the class DecisionTree representing the decision tree trained on the 
+        dataset (X, y) according to parameters set in the constructor
+        '''
+        return super(DecisionTreeRegressor, self).fit(X,y)

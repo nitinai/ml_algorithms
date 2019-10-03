@@ -1,16 +1,13 @@
 import numpy as np
 import pandas as pd
 
-from sklearn.base import BaseEstimator
-from sklearn.metrics import accuracy_score
-
 from ..tree import DecisionTree
 
-__all__ = ["RandomForest"]
+__all__ = ["RandomForestClassifier"]
 
 RANDOM_STATE = 17
 
-class RandomForest(BaseEstimator):
+class RandomForest():
     def __init__(self, n_estimators=10, max_depth=10, max_features=10, 
                  random_state=RANDOM_STATE, criterion='gini', debug=False):
         self.n_estimators = n_estimators
@@ -69,3 +66,21 @@ class RandomForest(BaseEstimator):
             prob.append(p)
             
         return np.mean(prob, axis=0)
+
+
+class RandomForestClassifier(RandomForest):
+
+    def __init__(self, n_estimators=10, max_depth=10, max_features=10, 
+                 random_state=RANDOM_STATE, criterion='gini', debug=False):
+        super(RandomForestClassifier, self).__init__(
+            n_estimators=n_estimators,
+            max_depth=max_depth, 
+            max_features=max_features,
+            random_state=random_state,
+            criterion=criterion,
+            debug=debug)
+
+
+    def fit(self, X, y):
+        return super(RandomForestClassifier, self).fit(X,y)
+        

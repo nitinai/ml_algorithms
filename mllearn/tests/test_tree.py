@@ -1,7 +1,7 @@
 import pytest
 
 import numpy as np
-from mllearn.tree import DecisionTree, DecisionTreeClassifier
+from mllearn.tree import DecisionTreeClassifier, DecisionTreeRegressor
 
 from sklearn.datasets import make_classification, make_regression
 from sklearn.model_selection import train_test_split
@@ -68,7 +68,7 @@ def regression_dataset():
 def test_decision_tree_regressor_mse(regression_dataset):
     """Test decision tree classifier """
     X_train, X_test, y_train, y_test = regression_dataset
-    reg = DecisionTree(max_depth=6, min_samples_split=2, criterion='mse')
+    reg = DecisionTreeRegressor(max_depth=6, min_samples_split=2, criterion='mse')
     reg.fit(X_train, y_train)
     y_pred = reg.predict(X_test)
 
@@ -79,7 +79,7 @@ def test_decision_tree_regressor_mse(regression_dataset):
 def test_decision_tree_regressor_mad_median(regression_dataset):
     """Test decision tree classifier """
     X_train, X_test, y_train, y_test = regression_dataset
-    reg = DecisionTree(max_depth=6, min_samples_split=2, criterion='mad_median')
+    reg = DecisionTreeRegressor(max_depth=6, min_samples_split=2, criterion='mad_median')
     reg.fit(X_train, y_train)
     y_pred = reg.predict(X_test)
 

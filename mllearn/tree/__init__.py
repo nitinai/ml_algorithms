@@ -5,7 +5,9 @@ classification and regression.
 
 from .tree import DecisionTree
 from .tree import DecisionTreeClassifier
+from .tree import DecisionTreeRegressor
 
 __all__ = [ "DecisionTree",
-            "DecisionTreeClassifier"]
+            "DecisionTreeClassifier",
+            "DecisionTreeRegressor"]
 

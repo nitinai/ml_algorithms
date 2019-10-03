@@ -3,6 +3,6 @@ The :mod:`mllearn.tree` module includes ensemble-based models for
 classification and regression.
 """
 
-from .forest import RandomForest
+from .forest import RandomForestClassifier
 
-__all__ = ["RandomForest"]
+__all__ = ["RandomForestClassifier"]

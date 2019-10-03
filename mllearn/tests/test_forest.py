@@ -1,11 +1,11 @@
 import pytest
 
 import numpy as np
-from mllearn.ensemble import RandomForest
+from mllearn.ensemble import RandomForestClassifier
 
 from sklearn.datasets import make_classification, make_regression
 from sklearn.model_selection import train_test_split
-from sklearn.metrics import accuracy_score, mean_squared_error
+from sklearn.metrics import accuracy_score
 
 RANDOM_STATE = 17
 
@@ -25,9 +25,11 @@ def classification_dataset():
 
 
 def test_random_forest_classifer_entropy(classification_dataset):
-    """Test decision tree classifier """
+    """Test RandomForestClassifier """
     X_train, X_test, y_train, y_test = classification_dataset
-    clf = RandomForest(n_estimators=10, max_depth=7, max_features=2, random_state=RANDOM_STATE, criterion='entropy', debug=False) 
+    clf = RandomForestClassifier(n_estimators=10, max_depth=7, max_features=2, 
+                                random_state=RANDOM_STATE, 
+                                criterion='entropy', debug=False) 
     clf.fit(X_train, y_train)
     y_pred_prob = clf.predict_proba(X_test)
     y_pred = np.argmax(y_pred_prob, axis=1)
