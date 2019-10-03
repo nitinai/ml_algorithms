@@ -10,9 +10,9 @@ This repository contains bare minimum implementation of different machine learni
   * [RandomForestClassifier](mllearn/ensemble/forest.py#L69)
 - **metrics**
   - **classification metrics**
-  * [accuracy_score](mllearn/metrics/classification.py#L3)
+    * [accuracy_score](mllearn/metrics/classification.py#L3)
   - **regression metrics**
-  * [mean_squared_error](mllearn/metrics/regression.py#L3)
+    * [mean_squared_error](mllearn/metrics/regression.py#L3)
 - **tree**
   * [DecisionTreeClassifier](mllearn/tree/tree.py#L220)
   * [DecisionTreeRegressor](mllearn/tree/tree.py#L279)
